@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- Copyright 2026 B&A community. Licensed under Apache License 2.0. -->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Section Slicer</title>
+<link rel="stylesheet" href="dialog.css">
+</head>
+<body>
+<header>
+  <div>
+    <div class="title" data-t="title"></div>
+    <div class="muted" id="object"></div>
+  </div>
+  <span class="spacer"></span>
+  <span class="pill neutral" id="unit"></span>
+</header>
+<div id="notices"></div>
+
+<div id="wrap">
+  <section id="planes-block">
+    <div class="block-head">
+      <h3 data-t="planes"></h3>
+      <span class="spacer"></span>
+      <button id="add" data-t="add" data-tip="add_tip"></button>
+      <button id="undo" data-t="undo" data-tip="undo_tip"></button>
+    </div>
+    <div id="pending" class="hint"></div>
+    <table id="planes">
+      <thead><tr>
+        <th class="n" data-t="col_n"></th>
+        <th data-t="col_z"></th>
+        <th data-t="col_step"></th>
+        <th data-t="col_count"></th>
+        <th class="act"></th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+    <div id="levels" class="muted"></div>
+  </section>
+
+  <section id="layout-block">
+    <div class="block-head"><h3 data-t="layout"></h3></div>
+    <div class="grid-form">
+      <label><span data-t="gap"></span><input type="number" id="gap" min="0" step="5"></label>
+      <label><span data-t="mode"></span>
+        <select id="mode"><option value="row" data-t="mode_row"></option><option value="grid" data-t="mode_grid"></option></select>
+      </label>
+      <label><span data-t="columns"></span><input type="number" id="columns" min="1" step="1"></label>
+      <label><span data-t="area_unit"></span>
+        <select id="area_unit">
+          <option value="m2">м²</option><option value="cm2">см²</option>
+          <option value="mm2">мм²</option><option value="ft2">ft²</option>
+        </select>
+      </label>
+      <label><span data-t="decimal"></span>
+        <select id="decimal"><option value="auto">авто</option><option value=",">,</option><option value=".">.</option></select>
+      </label>
+    </div>
+  </section>
+
+  <section id="results-block">
+    <div class="block-head">
+      <h3 data-t="results"></h3>
+      <span class="spacer"></span>
+      <button id="copy" data-t="copy" data-tip="copy_tip" disabled></button>
+      <button id="csv" data-t="csv" disabled></button>
+    </div>
+    <div id="results"></div>
+  </section>
+</div>
+
+<footer>
+  <span class="muted" id="tool-state"></span>
+  <span class="spacer"></span>
+  <button id="cancel" data-t="cancel"></button>
+  <button id="build" class="primary" data-t="build"></button>
+</footer>
+<div id="toast"></div>
+<script src="dialog.js"></script>
+</body>
+</html>

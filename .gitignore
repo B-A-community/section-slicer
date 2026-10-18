@@ -1,0 +1,6 @@
+build/
+*.rbz
+*.zip
+*.skp
+*.skb
+__pycache__/
