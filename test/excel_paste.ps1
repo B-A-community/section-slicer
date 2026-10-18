@@ -28,7 +28,8 @@ try {
     $book = $excel.Workbooks.Add()
     $sheet = $book.Worksheets.Item(1)
     $sheet.Range('A1').Select() | Out-Null
-    $sheet.Paste()
+    # Явно HTML: обычный Paste в COM иногда берёт простой текст без разбивки.
+    $sheet.PasteSpecial('HTML') | Out-Null
     $used = $sheet.UsedRange
     $rows = $used.Rows.Count
     $cols = $used.Columns.Count
