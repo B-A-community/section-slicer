@@ -1,7 +1,9 @@
 ﻿# Copyright 2026 B&A community. Licensed under Apache License 2.0.
 param(
     # Суффикс в имени пакета. Уйдём в прод — запускать с -Suffix ''
-    [string]$Suffix = '_test'
+    [string]$Suffix = '_test',
+    # Ассет релиза для Exterminatus: build\release\section-slicer-<версия>-<rus|eng>.rbz
+    [switch]$Release
 )
 
 # Собирает src\ в section_slicer<версия><суффикс>.rbz. Имя архива на
@@ -57,3 +59,18 @@ Write-Host "Собрано: $rbz"
 $check = [System.IO.Compression.ZipFile]::OpenRead($rbz)
 $check.Entries | ForEach-Object { Write-Host ("  {0,-45} {1,7} б" -f $_.FullName, $_.Length) }
 $check.Dispose()
+
+# 4. Ассет релиза: язык — из lang.rb (LANG = 'ru' → -rus), версия — из загрузчика.
+#    По этим суффиксам Exterminatus выбирает языковую сборку и версию.
+if ($Release) {
+    $langFile = Join-Path $src 'section_slicer\lang.rb'
+    $langMatch = Select-String -Path $langFile -Pattern "LANG\s*=\s*'([a-z]{2})'" | Select-Object -First 1
+    if (-not $langMatch) { throw "Не нашёл LANG в $langFile" }
+    $lang = @{ 'ru' = 'rus'; 'en' = 'eng' }[$langMatch.Matches[0].Groups[1].Value]
+    if (-not $lang) { throw "Неизвестный язык в $langFile" }
+    $releaseDir = Join-Path $root 'build\release'
+    New-Item -ItemType Directory -Force $releaseDir | Out-Null
+    $asset = Join-Path $releaseDir "section-slicer-$version-$lang.rbz"
+    Copy-Item $rbz $asset -Force
+    Write-Host "Ассет релиза: $asset (тег v$($version -replace '\.0$', ''))"
+}

@@ -80,6 +80,16 @@ powershell -ExecutionPolicy Bypass -File tools/test_su2024.ps1
 
 Иконки: `python tools/generate_icons.py` (SVG для Windows, PNG для macOS).
 
+## Релизы и обновления через Exterminatus
+
+Плагин ставится и обновляется лаунчером [Exterminatus](https://github.com/B-A-community/exterminatus) из релизов этого репозитория. Кода для обновлений в плагине нет. Подробнее — раздел Exterminatus в [CLAUDE.md](CLAUDE.md).
+
+1. Поднять `VERSION` в `src/section_slicer.rb`.
+2. Собрать ассет: `powershell -ExecutionPolicy Bypass -File tools/build_rbz.ps1 -Release` → `build/release/section-slicer-<версия>-rus.rbz` (язык — из `src/section_slicer/lang.rb`).
+3. Релиз на GitHub: тег `vX.Y`, ассет из шага 2, не черновик и не pre-release.
+
+Имя расширения `Section Slicer`, папка `section_slicer` и строка `LANG = 'ru'` в `lang.rb` не меняются — по ним Exterminatus находит плагин и его языковую сборку.
+
 ## Структура
 
 ```

@@ -10,7 +10,7 @@ module BACommunity
 end
 
 SS_SRC = File.expand_path('../src/section_slicer', __dir__) unless defined?(SS_SRC)
-%w[strings units plane_set slicer area_report clipboard layout plane_tool session].each do |name|
+%w[lang strings units plane_set slicer area_report clipboard layout plane_tool session].each do |name|
   load File.join(SS_SRC, "#{name}.rb")
 end
 

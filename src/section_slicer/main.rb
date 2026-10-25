@@ -19,6 +19,7 @@ module BACommunity
 
     HERE = File.dirname(__FILE__).freeze
 
+    require File.join(HERE, 'lang.rb')
     require File.join(HERE, 'strings.rb')
     require File.join(HERE, 'units.rb')
     require File.join(HERE, 'plane_set.rb')
